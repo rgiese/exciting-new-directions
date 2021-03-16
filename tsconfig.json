@@ -1,0 +1,22 @@
+{
+  "include": ["./src/**/*"],
+  "compilerOptions": {
+    "strict": true,
+    "target": "es6",
+    "lib": ["es6", "dom"],
+
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true, // allows for `import React from "react"` vs. `import * as React from "react"`
+
+    "jsx": "react",
+
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+
+    "noEmit": true,
+
+    "typeRoots": ["./node_modules/@types", "./src/@types"]
+  }
+}
