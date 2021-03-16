@@ -2,11 +2,6 @@ import { graphql, Link, useStaticQuery } from "gatsby";
 import React from "react";
 
 import Heart from "../assets/icons/heart.svg";
-import LogoGitHub from "../assets/icons/logo-github.svg";
-import LogoGMail from "../assets/icons/logo-gmail.svg";
-import LogoIMDB from "../assets/icons/logo-imdb.svg";
-import LogoLinkedIn from "../assets/icons/logo-linkedin.svg";
-import type { Sprite } from "./icon";
 import Icon from "./icon";
 
 // Static GraphQL query
@@ -52,29 +47,6 @@ interface HeaderData {
   pages: PostList;
 }
 
-/* eslint-disable react/no-multi-comp */
-
-// Interior components
-const SocialLink: React.FunctionComponent<{ uri: string; sprite: Sprite }> = ({
-  uri,
-  sprite,
-}): JSX.Element => (
-  <span className="pr1 pr2-ns">
-    <a
-      className="link dim"
-      href={uri}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <Icon
-        className="w1 h1 v-base black-40 svg-fill-current-color"
-        sprite={sprite}
-      />
-    </a>
-  </span>
-);
-
-// Component definition
 const RightBar: React.FunctionComponent = () => {
   const data: HeaderData = useStaticQuery(rightBarStaticQuery);
 
