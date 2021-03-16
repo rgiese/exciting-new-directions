@@ -3,7 +3,6 @@ import { resolve } from "path";
 
 import type { PagePageContext } from "../templates/page";
 import type { PostPageContext } from "../templates/post";
-import type { TagIndexPageContext } from "../templates/tagIndex";
 import type { GatsbyCreatePages, GatsbyOnCreateNode } from "./gatsby-node";
 
 // onCreateNode
@@ -47,9 +46,6 @@ interface Post {
     slug: string;
     sourceInstanceName: string;
   };
-  frontmatter: {
-    tags: string[];
-  };
 }
 
 interface PostNodes {
@@ -79,9 +75,6 @@ async function getPostsForSourceName(
               slug
               sourceInstanceName
             }
-            frontmatter {
-              tags
-            }
           }
         }
       }
@@ -98,9 +91,6 @@ export const createPages: GatsbyCreatePages = async ({
   boundActionCreators,
 }) => {
   const { createPage } = boundActionCreators;
-
-  const tagsWithSourceInstanceName = new Set<string>();
-  const tagSeparator = `/`;
 
   //
   // Build pages of all types (posts, standalone pages)
@@ -136,16 +126,6 @@ export const createPages: GatsbyCreatePages = async ({
         context: postPageContext,
       });
     }
-
-    // Accumulate tags
-    post.frontmatter.tags.forEach((tag) => {
-      // Since JavaScript doesn't have a proper std::set<T>,
-      // we'll just cram our two values into a delimited string.
-      // Sadness.
-      tagsWithSourceInstanceName.add(
-        `${sourceInstanceName}${tagSeparator}${tag}`
-      );
-    });
   });
 
   // Build pages for standalone pages
@@ -166,22 +146,4 @@ export const createPages: GatsbyCreatePages = async ({
       context: pagePageContext,
     });
   });
-
-  //
-  // Create tag index pages across all source instances
-  //
-
-  for (const sourceInstanceNameAndTag of tagsWithSourceInstanceName) {
-    const [sourceInstanceName, tag] = sourceInstanceNameAndTag.split(
-      tagSeparator
-    );
-
-    const tagPageContext: TagIndexPageContext = { sourceInstanceName, tag };
-
-    createPage({
-      path: `/tags/${sourceInstanceName}/${tag}`,
-      component: resolve(`./src/templates/tagIndex.tsx`),
-      context: tagPageContext,
-    });
-  }
 };

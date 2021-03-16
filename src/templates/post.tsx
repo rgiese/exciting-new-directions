@@ -1,8 +1,6 @@
 import { graphql, Link } from "gatsby";
 import React from "react";
 
-import TagIcon from "../assets/icons/tag.svg";
-import Icon from "../components/icon";
 import Layout from "../components/layout";
 import MDXPresenter from "../components/mdxPresenter";
 import Seo from "../components/seo";
@@ -37,7 +35,6 @@ export const postContentQuery = graphql`
         title
         date(formatString: "MMMM Do, YYYY")
         keywords
-        tags
       }
     }
     previousPost: mdx(fields: { slug: { eq: $previousPostSlug } }) {
@@ -70,7 +67,6 @@ interface PostContentData {
       title: string;
       date: string;
       keywords?: string[];
-      tags: string[];
     };
   };
   previousPost?: PreviousOrNextPostData;
@@ -137,22 +133,8 @@ const PostPage: React.FunctionComponent<{
         </Link>
       </h1>
 
-      {/* Post date and tags */}
-      <div className="f5 black-60">
-        {post.frontmatter.date}
-        <span className="ph2 black-40">in</span>
-        {post.frontmatter.tags.map((tag) => (
-          <Link
-            className="link accent-mono"
-            key={tag}
-            to={`/tags/${post.fields.sourceInstanceName}/${tag}`}
-          >
-            <Icon className="w1 h1 v-mid" sprite={TagIcon} />
-            {` `}
-            {tag}
-          </Link>
-        ))}
-      </div>
+      {/* Post date */}
+      <div className="f5 black-60">{post.frontmatter.date}</div>
 
       {/* Previous/next navigation (top) */}
       <PreviousNextLinks data={data} linkClass="black-40" />

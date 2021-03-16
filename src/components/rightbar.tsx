@@ -31,11 +31,6 @@ const rightBarStaticQuery = graphql`
     ) {
       ...RightBarPosts
     }
-    tagList: allMdx(
-      filter: { fields: { sourceInstanceName: { eq: "posts" } } }
-    ) {
-      distinctTags: distinct(field: frontmatter___tags)
-    }
   }
 `;
 
@@ -55,9 +50,6 @@ interface PostList {
 
 interface HeaderData {
   pages: PostList;
-  tagList: {
-    distinctTags: string[];
-  };
 }
 
 /* eslint-disable react/no-multi-comp */
@@ -92,7 +84,7 @@ const RightBar: React.FunctionComponent = () => {
 
   return (
     <div className="f5 lh-copy center">
-      {/*** Pinned ***/}
+      {/*** Pinned and all posts ***/}
       <h4>Pinned</h4>
       {data.pages.edges.map(({ node }) => (
         <div key={node.fields.slug}>
@@ -101,23 +93,9 @@ const RightBar: React.FunctionComponent = () => {
           </Link>
         </div>
       ))}
-
-      {/*** Topics ***/}
-      <h4>Topics</h4>
       <div>
-        {data.tagList.distinctTags.map((tag) => (
-          <Link
-            className={`${linkDefaultClassName} pr2`}
-            key={tag}
-            to={`/tags/posts/${tag}`}
-          >
-            {tag}
-          </Link>
-        ))}
-      </div>
-      <div className="pt3">
         <Link className={linkDefaultClassName} to="/posts/all">
-          every damn thing
+          All posts
         </Link>
       </div>
 

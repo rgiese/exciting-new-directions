@@ -2,19 +2,9 @@ import { MDXProvider } from "@mdx-js/react";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import React from "react";
 
-import IconTag from "../assets/icons/tag.svg";
 import Icon from "../components/icon";
 import YouTube from "../components/youtube";
 
-/* eslint-disable react/no-multi-comp */
-
-const TagIcon: React.FunctionComponent<{ className: string }> = ({
-  className,
-}) => {
-  return <Icon className={className} sprite={IconTag} />;
-};
-
-// Component definition
 const MDXPresenter: React.FunctionComponent<{
   data: string;
 }> = ({ data }) => {
@@ -29,7 +19,6 @@ const MDXPresenter: React.FunctionComponent<{
     <MDXProvider
       components={{
         Icon,
-        TagIcon,
         YouTube,
         p: paragraphAsDiv,
       }}

@@ -1,9 +1,6 @@
 import { graphql, Link } from "gatsby";
 import React from "react";
 
-import TagIcon from "../assets/icons/tag.svg";
-import Icon from "./icon";
-
 // GraphQL fragment to be used by caller
 export const postsQueryFragment = graphql`
   fragment PostIndexPosts on MdxConnection {
@@ -16,7 +13,6 @@ export const postsQueryFragment = graphql`
         }
         frontmatter {
           date(formatString: "MMMM Do, YYYY")
-          tags
           title
         }
       }
@@ -58,19 +54,6 @@ export const PostIndex: React.FunctionComponent<PostIndexProps> = ({
       <tbody className="lh-copy v-top">
         {posts.edges.map(({ node }) => (
           <tr key={node.id}>
-            <td>
-              {node.frontmatter.tags.map((tag) => (
-                <Link
-                  className="link accent-mono"
-                  key={tag}
-                  to={`/tags/${node.fields.sourceInstanceName}/${tag}`}
-                >
-                  <Icon className="w1 h1 v-mid" sprite={TagIcon} />
-                  {` `}
-                  {tag}
-                </Link>
-              ))}
-            </td>
             <td className="b ph3">{node.frontmatter.date}</td>
             <td>
               <Link className="link accent" to={node.fields.slug}>
