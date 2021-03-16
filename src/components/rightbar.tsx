@@ -99,25 +99,8 @@ const RightBar: React.FunctionComponent = () => {
         </Link>
       </div>
 
-      {/*** "Social" links (as it were) ***/}
-      <h4>Elsewhere</h4>
-      <div>
-        {/* Drop on small screens: "dn" - don't display by default, "dib-ns" - display on non-small screens */}
-        <SocialLink sprite={LogoGMail} uri="mailto:robin@grumpycorp.com" />
-        <SocialLink
-          sprite={LogoLinkedIn}
-          uri="https://www.linkedin.com/in/robingiese"
-        />
-
-        <SocialLink
-          sprite={LogoIMDB}
-          uri="https://www.imdb.com/name/nm8515322/"
-        />
-        <SocialLink sprite={LogoGitHub} uri="https://github.com/rgiese/" />
-      </div>
-
       {/*** Footer-type items ***/}
-      <h4>Not a colophon</h4>
+      <h4>Credits</h4>
 
       <div className={footerSectionClassName}>
         ©{new Date().getFullYear()}
@@ -133,31 +116,6 @@ const RightBar: React.FunctionComponent = () => {
 
       <div className={footerSectionClassName}>
         Made with <Icon className="v-mid w1 h1" sprite={Heart} /> in Seattle.
-      </div>
-
-      <div className={footerSectionClassName}>
-        Powered by {` `}
-        <a className={linkDefaultClassName} href="https://www.gatsbyjs.org">
-          Gatsby
-        </a>
-        , {` `}
-        <a className={linkDefaultClassName} href="https://tachyons.io">
-          Tachyions
-        </a>
-        , and {` `}
-        <a className={linkDefaultClassName} href="https://netlify.com">
-          Netlify
-        </a>
-        .
-      </div>
-
-      <div className={footerSectionClassName}>
-        <Link
-          className={linkDefaultClassName}
-          to="/posts/code/improving-site-visitor-privacy/"
-        >
-          Privacy notice.
-        </Link>
       </div>
     </div>
   );
