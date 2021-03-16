@@ -2,7 +2,6 @@ import { createFilePath } from "gatsby-source-filesystem";
 import { resolve } from "path";
 
 import type { PagePageContext } from "../templates/page";
-import type { PortfolioPageContext } from "../templates/portfolio";
 import type { PostPageContext } from "../templates/post";
 import type { TagIndexPageContext } from "../templates/tagIndex";
 import type { GatsbyCreatePages, GatsbyOnCreateNode } from "./gatsby-node";
@@ -104,7 +103,7 @@ export const createPages: GatsbyCreatePages = async ({
   const tagSeparator = `/`;
 
   //
-  // Build pages of all types (posts, standalone pages, portfolio pages)
+  // Build pages of all types (posts, standalone pages)
   //
 
   // Build pages for posts (sort ascending for get[Next,Previous]Posts)
@@ -165,25 +164,6 @@ export const createPages: GatsbyCreatePages = async ({
       path: slug,
       component: resolve(`./src/templates/page.tsx`),
       context: pagePageContext,
-    });
-  });
-
-  // Build pages for portfolio pages
-  const portfolio = await getPostsForSourceName(graphql, "portfolio");
-
-  portfolio.forEach((page) => {
-    const slug = page.fields.slug;
-    const sourceInstanceName = page.fields.sourceInstanceName;
-
-    const portfolioPageContext: PortfolioPageContext = {
-      slug,
-      sourceInstanceName,
-    };
-
-    createPage({
-      path: slug,
-      component: resolve(`./src/templates/portfolio.tsx`),
-      context: portfolioPageContext,
     });
   });
 

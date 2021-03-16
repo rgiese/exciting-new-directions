@@ -31,12 +31,6 @@ const rightBarStaticQuery = graphql`
     ) {
       ...RightBarPosts
     }
-    portfolio: allMdx(
-      sort: { fields: [frontmatter___title], order: ASC }
-      filter: { fields: { sourceInstanceName: { eq: "portfolio" } } }
-    ) {
-      ...RightBarPosts
-    }
     tagList: allMdx(
       filter: { fields: { sourceInstanceName: { eq: "posts" } } }
     ) {
@@ -61,7 +55,6 @@ interface PostList {
 
 interface HeaderData {
   pages: PostList;
-  portfolio: PostList;
   tagList: {
     distinctTags: string[];
   };
@@ -102,16 +95,6 @@ const RightBar: React.FunctionComponent = () => {
       {/*** Pinned ***/}
       <h4>Pinned</h4>
       {data.pages.edges.map(({ node }) => (
-        <div key={node.fields.slug}>
-          <Link className={linkDefaultClassName} to={node.fields.slug}>
-            {node.frontmatter.title}
-          </Link>
-        </div>
-      ))}
-
-      {/*** Portfolio ***/}
-      <h4>Portfolio</h4>
-      {data.portfolio.edges.map(({ node }) => (
         <div key={node.fields.slug}>
           <Link className={linkDefaultClassName} to={node.fields.slug}>
             {node.frontmatter.title}

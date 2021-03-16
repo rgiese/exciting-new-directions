@@ -4,7 +4,6 @@ import React from "react";
 
 import IconTag from "../assets/icons/tag.svg";
 import Icon from "../components/icon";
-import PortfolioPhoto from "../components/portfolioPhoto";
 import Vimeo from "../components/vimeo";
 import YouTube from "../components/youtube";
 
@@ -32,7 +31,6 @@ const MDXPresenter: React.FunctionComponent<{
       components={{
         Icon,
         TagIcon,
-        PortfolioPhoto,
         Vimeo,
         YouTube,
         p: paragraphAsDiv,

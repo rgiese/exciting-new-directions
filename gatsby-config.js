@@ -34,13 +34,6 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `portfolio`,
-        path: `${__dirname}/src/content/portfolio`,
-      },
-    },
-    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         // See https://github.com/ChristopherBiscardi/gatsby-mdx/blob/master/examples/custom-remark-plugins/gatsby-config.js for further examples
