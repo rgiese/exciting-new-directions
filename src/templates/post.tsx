@@ -34,7 +34,6 @@ export const postContentQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM Do, YYYY")
-        keywords
       }
     }
     previousPost: mdx(fields: { slug: { eq: $previousPostSlug } }) {
@@ -66,7 +65,6 @@ interface PostContentData {
     frontmatter: {
       title: string;
       date: string;
-      keywords?: string[];
     };
   };
   previousPost?: PreviousOrNextPostData;
@@ -121,10 +119,7 @@ const PostPage: React.FunctionComponent<{
 
   return (
     <Layout>
-      <Seo
-        keywords={post.frontmatter.keywords}
-        title={post.frontmatter.title}
-      />
+      <Seo title={post.frontmatter.title} />
 
       {/* Post title */}
       <h1 className="mb1">
