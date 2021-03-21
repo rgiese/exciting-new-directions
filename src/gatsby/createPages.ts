@@ -1,23 +1,23 @@
-import { createFilePath } from "gatsby-source-filesystem";
-import { resolve } from "path";
+import type { GatsbyCreatePages, GatsbyOnCreateNode } from "./gatsby-node";
 
 import type { PagePageContext } from "../templates/page";
 import type { PostPageContext } from "../templates/post";
-import type { GatsbyCreatePages, GatsbyOnCreateNode } from "./gatsby-node";
+import { createFilePath } from "gatsby-source-filesystem";
+import { resolve } from "path";
 
 // onCreateNode
 export const onCreateNode: GatsbyOnCreateNode = ({
   node,
+  actions,
   getNode,
-  boundActionCreators,
 }) => {
-  const { createNodeField } = boundActionCreators;
+  const { createNodeField } = actions;
 
   // Create slugs and attach source instance names for Markdown content
   if (node.internal.type === `Mdx`) {
     // Get source instance name so we can filter on it in queries
     const parent = getNode(node.parent);
-    const sourceInstanceName = parent.sourceInstanceName as string;
+    const sourceInstanceName = (parent as any).sourceInstanceName as string;
 
     createNodeField({
       node,
@@ -86,11 +86,8 @@ async function getPostsForSourceName(
   return posts;
 }
 
-export const createPages: GatsbyCreatePages = async ({
-  graphql,
-  boundActionCreators,
-}) => {
-  const { createPage } = boundActionCreators;
+export const createPages: GatsbyCreatePages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
 
   //
   // Build pages of all types (posts, standalone pages)
