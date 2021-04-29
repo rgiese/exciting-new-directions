@@ -1,9 +1,9 @@
-import type { GatsbyCreatePages, GatsbyOnCreateNode } from "./gatsby-node";
+import { createFilePath } from "gatsby-source-filesystem";
+import { resolve } from "path";
 
 import type { PagePageContext } from "../templates/page";
 import type { PostPageContext } from "../templates/post";
-import { createFilePath } from "gatsby-source-filesystem";
-import { resolve } from "path";
+import type { GatsbyCreatePages, GatsbyOnCreateNode } from "./gatsby-node";
 
 // onCreateNode
 export const onCreateNode: GatsbyOnCreateNode = ({
@@ -16,7 +16,7 @@ export const onCreateNode: GatsbyOnCreateNode = ({
   // Create slugs and attach source instance names for Markdown content
   if (node.internal.type === `Mdx`) {
     // Get source instance name so we can filter on it in queries
-    const parent = getNode(node.parent);
+    const parent = getNode(node.parent as string);
     const sourceInstanceName = (parent as any).sourceInstanceName as string;
 
     createNodeField({

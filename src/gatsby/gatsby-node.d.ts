@@ -35,7 +35,7 @@ export type GatsbyCreatePages = (fns: {
 
 // onCreateWebpackConfig
 interface OnCreateWebpackConfigActions {
-  replaceWebpackConfig: (opts: { config: any }) => void;
+  replaceWebpackConfig: (config: any) => void;
 }
 
 export type GatsbyOnCreateWebpackConfig = (fns: {

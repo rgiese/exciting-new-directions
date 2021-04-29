@@ -30,7 +30,10 @@ export const onCreateWebpackConfig: GatsbyOnCreateWebpackConfig = ({
       const svgCheck = /\|svg/;
 
       if (test?.toString().includes("|svg")) {
-        const revisedTestString = test.toString().replace(svgCheck, "");
+        const revisedTestString = (test.toString() as string).replace(
+          svgCheck,
+          ""
+        );
 
         return {
           ...item,
