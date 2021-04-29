@@ -5,10 +5,10 @@ const SpriteLoaderPlugin = require("svg-sprite-loader/plugin"); // Won't convert
 
 export const onCreateWebpackConfig: GatsbyOnCreateWebpackConfig = ({
   stage,
-  boundActionCreators,
   getConfig,
+  actions,
 }) => {
-  const { replaceWebpackConfig } = boundActionCreators;
+  const { replaceWebpackConfig } = actions;
   const config = getConfig();
 
   //
@@ -30,7 +30,10 @@ export const onCreateWebpackConfig: GatsbyOnCreateWebpackConfig = ({
       const svgCheck = /\|svg/;
 
       if (test?.toString().includes("|svg")) {
-        const revisedTestString = test.toString().replace(svgCheck, "");
+        const revisedTestString = (test.toString() as string).replace(
+          svgCheck,
+          ""
+        );
 
         return {
           ...item,
@@ -63,16 +66,13 @@ export const onCreateWebpackConfig: GatsbyOnCreateWebpackConfig = ({
             spriteFilename: `icons.svg`,
           },
         },
-        {
-          loader: "svgo-loader",
-          options: {},
-        },
       ],
     },
   ];
 
   // Instantiate SpriteLoaderPlugin
-  config.plugins = [...config.plugins, new SpriteLoaderPlugin()];
+  const spriteLoaderPlugin = new SpriteLoaderPlugin();
+  config.plugins = [...config.plugins, spriteLoaderPlugin];
 
   replaceWebpackConfig(config);
 };

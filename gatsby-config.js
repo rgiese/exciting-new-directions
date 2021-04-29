@@ -55,6 +55,7 @@ module.exports = {
     },
 
     // Image processing pipeline
+    `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
 
